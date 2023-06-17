@@ -7,11 +7,13 @@ const TodoList: React.FC = () => {
         (state) => state.todos
     );
 
-    const { fetchTodos } = useActions();
+    const { fetchTodos, SetTodoPage } = useActions();
+
+    const pages = [1, 2, 3, 4, 5]; //для пагинации (5 страниц)
 
     useEffect(() => {
         fetchTodos(page, limit);
-    }, []);
+    }, [page]); //зависимость от страницы, чтобы при переходе на др. страницу подгружался контент
 
     if (loading) {
         return <h1>Идет загрузка...</h1>;
@@ -27,6 +29,22 @@ const TodoList: React.FC = () => {
                     {todo.id} - {todo.title}
                 </div>
             ))}
+            <div style={{ display: "flex" }}>
+                {pages.map((p) => (
+                    <div
+                        style={{
+                            border:
+                                p === page
+                                    ? "2px solid green"
+                                    : "1px solid gray",
+                            padding: 10,
+                        }}
+                        onClick={() => SetTodoPage(p)}
+                    >
+                        {p}
+                    </div>
+                ))}
+            </div>
         </div>
     );
 };
