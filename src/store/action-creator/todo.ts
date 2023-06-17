@@ -2,12 +2,12 @@ import { Dispatch } from "redux";
 import axios from "axios";
 import { TodoActions, TodoActionsTypes } from "../../types/todo";
 
-export const fetchUsers = (page = 1, limit = 10) => {
+export const fetchTodos = (page = 1, limit = 10) => {
     return async (dispatch: Dispatch<TodoActions>) => {
         try {
             dispatch({ type: TodoActionsTypes.FETCH_TODOS });
             const response = await axios.get(
-                "https://jsonplaceholder.typicode.com/users",
+                "https://jsonplaceholder.typicode.com/todos",
                 { params: { _page: page, _limit: limit } } //параметры изменения страницы и количество позиций списка дел
             );
             setTimeout(() => {
